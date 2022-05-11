@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <h1>Welcome to Realtime logger window</h1>
+        <textarea id='log' rows=100 cols=160 autofocus></textarea>
+    </head>
+    <body>
+        <script>
+            const ws = new WebSocket("ws://localhost:8080");
+            ws.addEventListener("open", () => {
+                console.log("Connection established between server and client");
+                ws.send("Test")
+            })
+
+            ws.addEventListener("message", (event) => {
+                console.log("New message: ", event.data);
+                let logs = document.getElementById('log');
+                logs.value += event.data;
+            })
+        </script>
+    </body>
+</html>
